@@ -6,6 +6,7 @@ import DoctorRoute from "./routes/doctor.route.js";
 import ConsultationRoute from "./routes/consultation.route.js";
 import Prescription from "./routes/prescription.route.js";
 import { sendResponse } from "./utils/apiResponse.js";
+import bodyParser from "body-parser";
 
 const app = e();
 
@@ -16,10 +17,27 @@ app.use(
   })
 );
 
-app.use(e.json({ limit: "16kb" }));
-app.use(e.urlencoded({ extended: true, limit: "16kb" }));
-app.use(e.static("public"));
+
+app.use(e.json());
 app.use(cookieParser());
+
+// CORS configuration
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
+
+// For handling preflight requests
+app.options("*", cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// app.use(e.urlencoded({ extended: true, limit: "16kb" }));
+// app.use(e.static("public"));
+// app.use(cookieParser());
 
 app.get("/", (_, res) => {
   return res.json("Im running");
