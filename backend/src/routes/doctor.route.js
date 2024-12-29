@@ -11,7 +11,9 @@ const router = e.Router();
 
 router.route("/register").post(singleUpload, registerDoctor);
 router.route("/login").post(loginDoctor);
-router.route("/").get(isAunthenticate, getAllDoctors);
-router.route("/:id").get(isAunthenticate, getAllDoctors);
+// router.route("/").get(isAunthenticate, getAllDoctors);
+router.route("/").get( getAllDoctors);
+// router.route("/:id").get(isAunthenticate, getAllDoctors);
+router.route("/:id").get(getAllDoctors);
 
 export default router;

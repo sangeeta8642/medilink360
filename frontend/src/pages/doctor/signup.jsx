@@ -1,24 +1,26 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
-const signup = () => {
-    const [PatientRegisterData, setPatientRegisterData] = useState({
+
+const Signup = () => {
+    const [DoctorRegisterData, setDoctorRegisterData] = useState({
         email: "",
         password: "",
         name: "",
         phone: "",
-        age: "",
+        speciality: "",
+        experience: "",
         profilePic: "",
     });
 
-    const HandleRegisterPatient = async (e) => {
+    const HandleRegisterDoctor = async (e) => {
         e.preventDefault();
-        console.log(PatientRegisterData);
+        console.log(DoctorRegisterData);
         try {
             const response = await axios.post(
-                `${import.meta.env.VITE_BACKENDURL}/login`,
-                PatientRegisterData,
+                `${import.meta.env.VITE_BACKENDURL}/register`,
+                DoctorRegisterData,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -45,7 +47,7 @@ const signup = () => {
                 alert("Phone number must be 10 digits and numeric.");
             }
         }
-        setPatientRegisterData((prevState) => ({
+        setDoctorRegisterData((prevState) => ({
             ...prevState,
             [name]: value,
         }));
@@ -53,9 +55,9 @@ const signup = () => {
 
     return (
         <div className="flex justify-center items-center mt-14">
-            <form onSubmit={HandleRegisterPatient} className="flex flex-col gap-2">
+            <form onSubmit={HandleRegisterDoctor} className="flex flex-col gap-2">
                 <div className="text-xl font-bold tracking-wider text-center">
-                    Patient SignUp
+                    Doctor SignUp
                 </div>
                 <div className="flex flex-col">
                     <label>Name</label>
@@ -88,12 +90,22 @@ const signup = () => {
                     />
                 </div>
                 <div className="flex flex-col">
-                    <label>Age</label>
+                    <label>Experience</label>
                     <input
                         type="number"
-                        name="age"
+                        name="experience"
                         onChange={HandleInputChange}
                         className="py-1.5 px-2.5 border rounded-md"
+                    />
+                </div>
+                <div className="flex flex-col">
+                    <label>speciality</label>
+                    <input
+                        type="text"
+                        name="speciality"
+                        onChange={HandleInputChange}
+                        className="py-1.5 px-2.5 border rounded-md"
+                        placeholder="General, surgen, etc"
                     />
                 </div>
                 <div className="flex flex-col">
@@ -125,9 +137,9 @@ const signup = () => {
 
                 <div className="w-full h-0.5 bg-black"></div>
                 <div>
-                    New Patient ?
+                    New Doctor ?
                     <NavLink
-                        to="/patient/signin"
+                        to="/doctor/signin"
                         className={({ isActive }) =>
                             isActive ? "text-blue-500 font-bold" : "text-gray-500 ml-3"
                         }
@@ -140,4 +152,4 @@ const signup = () => {
     );
 };
 
-export default signup;
+export default Signup;

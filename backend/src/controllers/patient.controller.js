@@ -89,6 +89,7 @@ export const loginPatient = async (req, res) => {
     if (!isPasswordMatched) {
       return sendResponse(res, 400, "Invalid Password");
     }
+    const patientData = await Patient.findById(patient._id).select("-password");
 
     const token = await jwt.sign(
       { patientId: patient._id },
@@ -96,13 +97,14 @@ export const loginPatient = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.cookie("token", token, {
-      maxAge: 1 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      sameSite: "strict",
-    });
-
-    return sendResponse(res, 200, "login successfull", true);
+    return res
+      .status(200)
+      .cookie("token", token, {
+        maxAge: 1 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        sameSite: "strict",
+      })
+      .json({ message: "login successfull", success: true, data: patientData });
   } catch (error) {
     return sendResponse(res, 500, error.message);
   }

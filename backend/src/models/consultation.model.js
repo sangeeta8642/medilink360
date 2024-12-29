@@ -26,7 +26,6 @@ const consultationSchema = new mongoose.Schema(
       other: { type: String, default: "" },
     },
     payment: {
-      qrCode: { type: String, required: true }, //URL of qrcode
       transitionId: { type: String, required: true },
     },
   },

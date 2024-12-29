@@ -7,17 +7,17 @@ export const createConsultation = async (req, res) => {
   try {
     const {
       doctorId,
-      patientId,
       illness,
       recentSurgeryName,
       recentSurgeryTimespan,
       isDiabetic,
-      qrCode,
       transitionId,
       allergies,
       other,
     } = req.body;
 
+    const patientId = req.id;
+    console.log("reqbody",patientId);
     if (
       !doctorId ||
       !patientId ||
@@ -25,11 +25,12 @@ export const createConsultation = async (req, res) => {
       !recentSurgeryName ||
       !recentSurgeryTimespan ||
       !isDiabetic ||
-      !qrCode ||
       !transitionId
     ) {
       return sendResponse(res, 400, "Please provide complete data");
     }
+
+    
 
     const doctor = await Doctor.findById(doctorId);
     const patient = await Patient.findById(patientId);
@@ -55,7 +56,6 @@ export const createConsultation = async (req, res) => {
         other,
       },
       payment: {
-        qrCode,
         transitionId,
       },
     });
@@ -97,6 +97,7 @@ export const getConsultationsOfDoctor = async (req, res) => {
     return sendResponse(res, 500, error.message);
   }
 };
+
 export const getConsultationsOfPatient = async (req, res) => {
   try {
     const { patientId } = req.body;

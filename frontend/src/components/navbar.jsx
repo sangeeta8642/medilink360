@@ -1,12 +1,9 @@
-import { userContext } from '@/context/userContext'
 import React, { useContext } from 'react'
 import { doctorLinks, userLinks } from '.'
 // import { Link } from 'react-router-dom'
 
 const Navbar = () => {
-
-    const { user } = useContext(userContext)
-
+    const user = "patient"
     return (
         <div className='w-full h-16 text-white bg-teal-700 px-5 flex items-center justify-between'>
             <h1 className='text-2xl '>

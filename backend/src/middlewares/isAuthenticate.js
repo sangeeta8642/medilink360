@@ -10,12 +10,15 @@ const isAunthenticate = async (req, res, next) => {
     }
 
     const decode = jwt.verify(token, process.env.SECRET_KEY);
+    console.log("decode", decode);
 
     if (!decode) {
       return sendResponse(res, 401, "Invalid token");
     }
 
     req.id = decode.patientId || decode.doctorId;
+    console.log(("reqid", req.id));
+
     next();
   } catch (error) {
     return sendResponse(res, 500, error.message);
