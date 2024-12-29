@@ -11,7 +11,7 @@ const app = e();
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173','https://medilink360.vercel.app'],
     credentials: true,
   })
 );

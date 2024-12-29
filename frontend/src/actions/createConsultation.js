@@ -3,7 +3,7 @@ import axios from "axios";
 export const CreateConsultation = async (formData) => {
   try {
     let response = await axios.post(
-      "http://localhost:8000/api/v1/consultation",
+      "https://medilink360-3.onrender.com/api/v1/consultation",
       formData
     );
 

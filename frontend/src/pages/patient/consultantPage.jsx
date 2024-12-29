@@ -41,7 +41,7 @@ const ConsultantPage = () => {
             console.log("data", data);
 
             let response = await axios.post(
-                "http://localhost:8000/api/v1/consultation",
+                "https://medilink360-3.onrender.com/api/v1/consultation",
                 data, {
                 withCredentials: true
             }

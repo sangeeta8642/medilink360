@@ -10,7 +10,7 @@ export const useGetDoctorById = (id) => {
     const fetchDoctors = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/doctor/${id}`
+          `https://medilink360-3.onrender.com/api/v1/doctor/${id}`
         );
         setDoctor(response.data.data); // Set the fetched doctors data/$
         setLoading(false); // Set loading to false after data is fetched

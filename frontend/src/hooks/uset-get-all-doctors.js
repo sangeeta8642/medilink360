@@ -9,7 +9,7 @@ export const useGetAllDoctors = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/doctor');
+        const response = await axios.get('https://medilink360-3.onrender.com/api/v1/doctor');
         setDoctors(response.data.data);  // Set the fetched doctors data
         setLoading(false);  // Set loading to false after data is fetched
       } catch (error) {

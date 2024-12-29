@@ -14,7 +14,7 @@ const Signin = () => {
 
         try {
             const response = await axios.post(
-                `http://localhost:8000/api/v1/doctor/login`,
+                `https://medilink360-3.onrender.com/api/v1/doctor/login`,
                 DoctorLoginData,
                 {
                     headers: {
