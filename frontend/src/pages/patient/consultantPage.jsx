@@ -41,7 +41,7 @@ const ConsultantPage = () => {
             console.log("data", data);
 
             let response = await axios.post(
-                "https://medilink360-3.onrender.com/api/v1/consultation",
+                `${import.meta.env.VITE_BACKENDURL}/consultation`,
                 data, {
                 withCredentials: true
             }

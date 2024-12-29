@@ -70,11 +70,14 @@ export const loginDoctor = async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.cookie("token", token, {
-      maxAge: 1 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      sameSite: "strict",
-    });
+    const Options = {
+      httpOnly: process.env.COOKIE_HTTPONLY,
+      secure: process.env.COOKIE_SECURE,
+      sameSite: process.env.COOKIE_SAMESITE,
+      maxAge: parseInt(process.env.COOKIE_MAXAGE, 10),
+    };
+
+    res.cookie("token", token, Options);
 
     return sendResponse(res, 200, "login successfull", true);
   } catch (error) {

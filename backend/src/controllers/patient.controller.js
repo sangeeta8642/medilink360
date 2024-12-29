@@ -114,11 +114,7 @@ export const loginPatient = async (req, res) => {
 
     return res
       .status(200)
-      .cookie("token", token, {
-        maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day in milliseconds
-        httpOnly: true, // Prevent access to the cookie via JavaScript
-        secure: process.env.NODE_ENV === 'production' ? true : false
-      })
+      .cookie("token", token, Options)
       .json({ message: "login successfull", success: true, data: patientData });
   } catch (error) {
     return sendResponse(res, 500, error.message);

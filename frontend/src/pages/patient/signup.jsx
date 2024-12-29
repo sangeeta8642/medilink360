@@ -17,7 +17,7 @@ const signup = () => {
         console.log(PatientRegisterData);
         try {
             const response = await axios.post(
-                `${import.meta.env.VITE_BACKENDURL}/login`,
+                `${import.meta.env.VITE_BACKENDURL}/patient/login`,
                 PatientRegisterData,
                 {
                     headers: {

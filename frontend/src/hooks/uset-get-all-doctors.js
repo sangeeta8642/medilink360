@@ -10,7 +10,7 @@ export const useGetAllDoctors = () => {
     const fetchDoctors = async () => {
       try {
         const response = await axios.get(
-          "https://medilink360-3.onrender.com/api/v1/doctor",
+          `${import.meta.env.VITE_BACKENDURL}/doctor`,
           {
             withCredentials: true,
           }
