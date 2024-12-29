@@ -100,9 +100,10 @@ export const loginPatient = async (req, res) => {
     return res
       .status(200)
       .cookie("token", token, {
-        maxAge: 1 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
-        sameSite: "strict",
+        maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day in milliseconds
+        httpOnly: true,                 // Prevent access to the cookie via JavaScript
+        sameSite: "strict",             // Ensure the cookie is sent only with requests originating from the same site
+        secure: true,    
       })
       .json({ message: "login successfull", success: true, data: patientData });
   } catch (error) {
