@@ -8,8 +8,8 @@ const signup = () => {
         password: "",
         name: "",
         phone: "",
-        age: "",
-        profilePic: "",
+        age: null,
+        file: "",
     });
 
     const HandleRegisterPatient = async (e) => {
@@ -17,7 +17,7 @@ const signup = () => {
         console.log(PatientRegisterData);
         try {
             const response = await axios.post(
-                `${import.meta.env.VITE_BACKENDURL}/patient/login`,
+                `${import.meta.env.VITE_BACKENDURL}/patient/register`,
                 PatientRegisterData,
                 {
                     headers: {
@@ -51,6 +51,7 @@ const signup = () => {
         }));
     };
 
+    
     return (
         <div className="flex justify-center items-center mt-14">
             <form onSubmit={HandleRegisterPatient} className="flex flex-col gap-2">

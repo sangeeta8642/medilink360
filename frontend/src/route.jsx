@@ -7,6 +7,9 @@ import PatientSignup from "./pages/patient/signup";
 import PatientSignin from "./pages/patient/signin";
 import Signup from "./pages/doctor/signup";
 import Signin from "./pages/doctor/signin";
+import Consultations from "./pages/patient/myconsultations";
+import Prescriptions from "./pages/patient/myprescriptions";
+import PatientProfile from "./pages/patient/profile";
 
 export const appRouter = createBrowserRouter([
   {
@@ -31,6 +34,18 @@ export const appRouter = createBrowserRouter([
   {
     path: "/patient/consultant/:doctorId",
     element: <ConsultantPage />,
+  },
+  {
+    path: "/patient/consultations",
+    element: <Consultations />,
+  },
+  {
+    path: "/patient/prescriptions",
+    element: <Prescriptions />,
+  },
+  {
+    path: "/patient/profile",
+    element: <PatientProfile />,
   },
   {
     path: "/doctor",

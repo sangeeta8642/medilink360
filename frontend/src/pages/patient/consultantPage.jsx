@@ -10,7 +10,8 @@ import axios from 'axios';
 const ConsultantPage = () => {
     const { doctorId } = useParams()
     const { doctor } = useGetDoctorById(doctorId)
-    const user = JSON.parse(localStorage.getItem("authToken"))
+    // const user = JSON.parse(localStorage.getItem("authToken"))
+    const nav = useNavigate()
     console.log("doctorId", doctor);
 
     const [step, setStep] = useState(1);
@@ -49,6 +50,7 @@ const ConsultantPage = () => {
             console.log("response", response);
 
             alert("Form Submitted!");
+            nav('/patient/consultation')
             // return await response.data;
         } catch (error) {
             console.log(error);

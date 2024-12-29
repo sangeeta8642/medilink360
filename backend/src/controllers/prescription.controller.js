@@ -68,18 +68,29 @@ export const getPrescriptionsOfDoctor = async (req, res) => {
       return sendResponse(res, 404, "No doctor found");
     }
 
+    const consultations = await Consultation.find({ doctor: doctorId });
+    console.log("Consultations Linked to doctor:", consultations);
+
+    const consultationIds = consultations.map((c) => c._id);
+    console.log("Consultation IDs:", consultationIds);
+
     // Fetch prescriptions and populate the consultation field
-    const prescriptions = await Prescription.find().populate({
+    const prescriptions = await Prescription.find({
+      consultation: { $in: consultationIds }, // Match consultation IDs
+    }).populate({
       path: "consultation",
-    //   match: { doctor:doctorId },
+      populate: [{ path: "patient" }, { path: "doctor" }],
     });
-
     // Filter prescriptions that successfully populated the consultation field
-    const filteredPrescriptions = prescriptions.filter(
-      (prescription) => prescription.consultation !== null
-    );
+    // const filteredPrescriptions = prescriptions.filter(
+    //   (prescription) => prescription.consultation !== null
+    // );
 
-    if (!filteredPrescriptions.length) {
+    // if (!filteredPrescriptions.length) {
+    //   return sendResponse(res, 404, "This doctor has no prescriptions");
+    // }
+
+    if (!prescriptions || prescriptions.length === 0) {
       return sendResponse(res, 404, "This doctor has no prescriptions");
     }
 
@@ -88,33 +99,83 @@ export const getPrescriptionsOfDoctor = async (req, res) => {
       200,
       "Prescriptions retrieved successfully",
       true,
-      filteredPrescriptions
+      prescriptions
     );
   } catch (error) {
     return sendResponse(res, 500, error.message);
   }
 };
 
+// export const getPrescriptionsOfPatient = async (req, res) => {
+//   try {
+//     const { patientId } = req.body;
+
+//     if (!patientId) {
+//       return sendResponse(res, 400, "Please provide the patientId");
+//     }
+
+//     const patient = await Patient.findById(patientId);
+
+//     if (!patient) {
+//       return sendResponse(res, 404, "No patient found");
+//     }
+
+//     const prescriptions = await Prescription.find({
+//       "consultation.patient": patientId, // Filter prescriptions by the patientId in the consultation field
+//     }).populate({
+//       path: "consultation",
+//       populate: [{ path: "patient" }, { path: "doctor" }],
+//     });
+
+//     if (!prescriptions || prescriptions.length === 0) {
+//       return sendResponse(res, 404, "This patient has no prescriptions");
+//     }
+//     return sendResponse(res, 200, "", true, prescriptions);
+//   } catch (error) {
+//     return sendResponse(res, 500, error.message);
+//   }
+// };
+
 export const getPrescriptionsOfPatient = async (req, res) => {
   try {
-    const { patientId } = req.body;
+    // const { patientId } = req.body;
+    const patientId = req.id;
 
     if (!patientId) {
       return sendResponse(res, 400, "Please provide the patientId");
     }
 
-    const doctor = await Patient.findById(patientId);
+    const patient = await Patient.findById(patientId);
+    console.log("Patient Found:", patient);
 
-    if (!doctor) {
-      return sendResponse(res, 404, "No doctor found");
+    if (!patient) {
+      return sendResponse(res, 404, "No patient found");
     }
 
-    const prescriptions = await Prescription.find({ patient: patientId });
-    if (!prescriptions || !prescriptions.length > 0) {
-      return sendResponse(res, 404, "This doctor has no prescriptions");
+    // Fetch consultations linked to the patient
+    const consultations = await Consultation.find({ patient: patientId });
+    console.log("Consultations Linked to Patient:", consultations);
+
+    // Extract consultation IDs
+    const consultationIds = consultations.map((c) => c._id);
+    console.log("Consultation IDs:", consultationIds);
+
+    // Fetch prescriptions linked to the consultations
+    const prescriptions = await Prescription.find({
+      consultation: { $in: consultationIds }, // Match consultation IDs
+    }).populate({
+      path: "consultation",
+      populate: [{ path: "patient" }, { path: "doctor" }],
+    });
+    console.log("Prescriptions Found:", prescriptions);
+
+    if (!prescriptions || prescriptions.length === 0) {
+      return sendResponse(res, 404, "This patient has no prescriptions");
     }
+
     return sendResponse(res, 200, "", true, prescriptions);
   } catch (error) {
+    console.error("Error in getPrescriptionsOfPatient:", error.message);
     return sendResponse(res, 500, error.message);
   }
 };
@@ -126,7 +187,9 @@ export const getPrescriptionById = async (req, res) => {
     if (!id) {
       return sendResponse(res, 400, "Please provide the consultation id");
     }
-    const prescription = await Prescription.findById(id);
+    const prescription = await Prescription.findById(id).populate({
+      path: "consultation",
+    });
     if (!prescription) {
       return sendResponse(res, 404, "No prescription found");
     }

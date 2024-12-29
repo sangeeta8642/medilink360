@@ -1,26 +1,26 @@
 export const userLinks = [
   {
-    link: "/doctors",
+    link: "/patient",
     title: "Doctors",
   },
   {
-    link: "/consultations",
+    link: "/patient/consultations",
     title: "Consultations",
   },
   {
-    link: "/prescriptions",
+    link: "/patient/prescriptions",
     title: "Prescriptions",
   },
   {
-    link: "/profile",
+    link: "/patient/profile",
     title: "Profile",
   },
 ];
 export const doctorLinks = [
-//   {
-//     link: "/doctors",
-//     title: "Doctors",
-//   },
+  //   {
+  //     link: "/doctors",
+  //     title: "Doctors",
+  //   },
   {
     link: "/consultations",
     title: "Consultations",

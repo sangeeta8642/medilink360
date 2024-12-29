@@ -38,6 +38,7 @@ export const registerDoctor = async (req, res) => {
       speciality,
       experience,
       profilePic: cloudRes.secure_url,
+      role: "doctor",
     });
 
     return sendResponse(res, 201, "Doctor created successfully", true, doctor);

@@ -33,6 +33,11 @@ const doctorSchema = new mongoose.Schema(
       type: String, //cloudinary url
       required: true,
     },
+    role: {
+      type: String, //cloudinary url
+      required: true,
+      enum: ["doctor"],
+    },
   },
   {
     timestamps: true,

@@ -17,7 +17,7 @@ export const createConsultation = async (req, res) => {
     } = req.body;
 
     const patientId = req.id;
-    console.log("reqbody",patientId);
+    console.log("reqbody", patientId);
     if (
       !doctorId ||
       !patientId ||
@@ -29,8 +29,6 @@ export const createConsultation = async (req, res) => {
     ) {
       return sendResponse(res, 400, "Please provide complete data");
     }
-
-    
 
     const doctor = await Doctor.findById(doctorId);
     const patient = await Patient.findById(patientId);
@@ -88,7 +86,9 @@ export const getConsultationsOfDoctor = async (req, res) => {
       return sendResponse(res, 404, "No doctor found");
     }
 
-    const consultations = await Consultation.find({ doctor: doctorId });
+    const consultations = await Consultation.find({ doctor: doctorId })
+      .populate("patient")
+      .populate("doctor");
     if (!consultations || !consultations.length > 0) {
       return sendResponse(res, 404, "This doctor has no consultations");
     }
@@ -100,7 +100,8 @@ export const getConsultationsOfDoctor = async (req, res) => {
 
 export const getConsultationsOfPatient = async (req, res) => {
   try {
-    const { patientId } = req.body;
+    // const { patientId } = req.body;
+    const patientId = req.id;
 
     if (!patientId) {
       return sendResponse(res, 400, "Please provide the patientId");
@@ -112,7 +113,9 @@ export const getConsultationsOfPatient = async (req, res) => {
       return sendResponse(res, 404, "No doctor found");
     }
 
-    const consultations = await Consultation.find({ patient: patientId });
+    const consultations = await Consultation.find({
+      patient: patientId,
+    }).populate({ path: "doctor" });
     if (!consultations || !consultations.length > 0) {
       return sendResponse(res, 404, "This doctor has no consultations");
     }

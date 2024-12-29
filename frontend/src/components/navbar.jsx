@@ -1,9 +1,12 @@
 import React, { useContext } from 'react'
 import { doctorLinks, userLinks } from '.'
+import { LogOut } from '@/actions/logOut'
+import { useNavigate } from 'react-router-dom'
 // import { Link } from 'react-router-dom'
 
 const Navbar = () => {
     const user = "patient"
+    const navigator = useNavigate()
     return (
         <div className='w-full h-16 text-white bg-teal-700 px-5 flex items-center justify-between'>
             <h1 className='text-2xl '>
@@ -41,7 +44,10 @@ const Navbar = () => {
                                         {patient.title}
                                     </a>
                                 ))}
-                                <button>Log out</button> {/* Log out button for patient */}
+                                <button onClick={() => {
+                                    LogOut()
+                                    navigator('/')
+                                }} >Log out</button> {/* Log out button for patient */}
                             </>
                         ) : user === "doctor" ? (
                             <>
@@ -50,7 +56,10 @@ const Navbar = () => {
                                         {doctor.title}
                                     </a>
                                 ))}
-                                <button>Log out</button> {/* Log out button for patient */}
+                                <button onClick={() => {
+                                    LogOut()
+                                    navigator('/')
+                                }}>Log out</button> {/* Log out button for patient */}
                             </>
                         ) : null
                     ) : null
