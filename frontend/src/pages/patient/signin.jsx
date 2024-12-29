@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
-import { toast } from "@/hooks/use-toast";
 
 const Signin = () => {
   const [PatientLoginData, setPatientLoginData] = useState({
@@ -26,14 +25,10 @@ const Signin = () => {
         }
       );
 
-      console.log("Login Successful:", response);
-
-
       localStorage.setItem("authToken", JSON.stringify(response.data.data));
 
       navigate("/patient");
     } catch (error) {
-      // Handle errors
       alert("An unexpected error occurred. Please try again.");
     }
   };

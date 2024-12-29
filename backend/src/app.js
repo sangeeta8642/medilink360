@@ -20,24 +20,9 @@ app.use(
 
 app.use(e.json());
 app.use(cookieParser());
-
-// CORS configuration
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  })
-);
-
-// For handling preflight requests
 app.options("*", cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-
-// app.use(e.urlencoded({ extended: true, limit: "16kb" }));
-// app.use(e.static("public"));
-// app.use(cookieParser());
 
 app.get("/", (_, res) => {
   return res.json("Im running");

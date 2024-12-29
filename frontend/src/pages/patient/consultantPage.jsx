@@ -1,19 +1,15 @@
 import { useGetDoctorById } from '@/hooks/use-get-doctor-by-id'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
-// import QRCode from 'qrcode.react';
 import ReactQRCode from 'react-qr-code';
-import { CreateConsultation } from '@/actions/createConsultation';
 import axios from 'axios';
 
 
 const ConsultantPage = () => {
     const { doctorId } = useParams()
     const { doctor } = useGetDoctorById(doctorId)
-    // const user = JSON.parse(localStorage.getItem("authToken"))
     const nav = useNavigate()
-    console.log("doctorId", doctor);
-
+   
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         illnessHistory: '',
@@ -39,25 +35,20 @@ const ConsultantPage = () => {
         }
 
         try {
-            console.log("data", data);
-
+           
             let response = await axios.post(
                 `${import.meta.env.VITE_BACKENDURL}/consultation`,
                 data, {
                 withCredentials: true
             }
             );
-            console.log("response", response);
-
+         
             alert("Form Submitted!");
-            nav('/patient/consultation')
-            // return await response.data;
-        } catch (error) {
+            nav('/patient/consultations')
+              } catch (error) {
             console.log(error);
         }
 
-        // console.log(formData);
-        // Handle form submission (e.g., send data to an API)
     };
 
     return (
@@ -91,60 +82,16 @@ const ConsultantPage = () => {
 }
 export default ConsultantPage
 
-
-// const Step3 = ({ formData, prevStep, submitForm, setFormData }) => (
-
-//     <div>
-//         <h2 className="text-xl font-bold mb-4">Step 3: Payment</h2>
-
-//         <div className="mb-4">
-//             <label className="block mb-2">Payment QR Code</label>
-//             <ReactQRCode value="https://www.example.com/payment" />
-//         </div>
-
-//         <div className="mb-4">
-//             <label className="block mb-2">Transaction ID</label>
-//             <input
-//                 type="text"
-//                 value={formData.transactionId}
-//                 onChange={(e) => setFormData({ ...formData, transactionId: e.target.value })}
-//                 className="p-2 border border-gray-300 rounded w-full"
-//             />
-//         </div>
-
-//         <div className="flex justify-between">
-//             <button
-//                 onClick={prevStep}
-//                 className="bg-gray-500 text-white py-2 px-4 rounded"
-//             >
-//                 Previous
-//             </button>
-//             <button
-//                 onClick={submitForm}
-//                 className="bg-green-500 text-white py-2 px-4 rounded"
-//             >
-//                 Submit
-//             </button>
-//         </div>
-//     </div>
-// );
-
-// import React, { useState, useEffect } from 'react';
-// import QRCode from 'qrcode.react';
-
 export const Step3 = ({ formData, prevStep, submitForm, setFormData }) => {
     const [transactionId, setTransactionId] = useState('');
 
-    // Generate a unique transaction ID (this can be fetched from the backend)
     useEffect(() => {
         const uniqueTransactionId = generateUniqueId();
         setTransactionId(uniqueTransactionId);
-        // setFormData({ ...formData, transactionId: uniqueTransactionId });
     }, []);
 
-    // Function to generate a unique ID (For demonstration purposes)
     const generateUniqueId = () => {
-        return 'TRANS-' + Math.random().toString(36).substr(2, 9); // simple unique ID generator
+        return 'TRANS-' + Math.random().toString(36).substr(2, 9);
     };
 
     const handleInputChange = (event) => {
@@ -211,7 +158,6 @@ export const Step2 = ({ formData, setFormData, nextStep, prevStep }) => (
                         type="radio"
                         name="diabetic"
                         value={true}
-                        // checked={formData.isDiabetic === true}
                         onChange={(e) => setFormData({ ...formData, isDiabetic: e.target.value })}
                         className="mr-2"
                     />
@@ -222,7 +168,6 @@ export const Step2 = ({ formData, setFormData, nextStep, prevStep }) => (
                         type="radio"
                         name="diabetic"
                         value={false}
-                        // checked={formData.isDiabetic === false}
                         onChange={(e) => setFormData({ ...formData, isDiabetic: e.target.value })}
                         className="mr-2"
                     />

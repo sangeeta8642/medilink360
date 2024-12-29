@@ -7,33 +7,20 @@ const Prescriptions = () => {
 
   const { prescriptions } = useGetPatientPrescription()
 
-  console.log("prescriptions", prescriptions);
-
 
   return (
     <main className='w-full h-full '>
       <Navbar />
       <section className='w-full h-full flex flex-col items-center py-5 gap-5'>
         {
-          prescriptions.map((prescription) => (
-            <PrescriptionCard prescription={prescription} />
-          ))
+          prescriptions.length > 0 ? (
+            prescriptions.map((prescription) => (
+              <PrescriptionCard prescription={prescription} />
+            ))
+          )
+            : <h1>No prescriptions found</h1>
         }
-        {
-          prescriptions.map((prescription) => (
-            <PrescriptionCard prescription={prescription} />
-          ))
-        }
-        {
-          prescriptions.map((prescription) => (
-            <PrescriptionCard prescription={prescription} />
-          ))
-        }
-        {
-          prescriptions.map((prescription) => (
-            <PrescriptionCard prescription={prescription} />
-          ))
-        }
+
       </section>
     </main>
   )
@@ -43,7 +30,7 @@ export default Prescriptions
 
 export const PrescriptionCard = ({ prescription }) => {
   return (
-    <div className='w-1/2 h-20 border-2 border-teal-700 flex gap-4 items-center'>
+    <div className='w-1/2 border-2 border-teal-700 flex gap-4 items-center px-5'>
       <div>
         <img src={prescription.consultation.doctor.profilePic} alt="docts's profile pic" width={50} height={50} />
       </div>
@@ -58,7 +45,7 @@ export const PrescriptionCard = ({ prescription }) => {
         <p>sent on : {new Date(prescription.createdAt).toLocaleString('en-UK')}</p>
       </div>
       <div>
-        <Button>Viwe receipt</Button>
+        <Button ><a href={prescription.pdf} target='_blank'>View receipt</a></Button>
       </div>
     </div>
   )

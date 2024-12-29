@@ -6,8 +6,6 @@ import { sendResponse } from "../utils/apiResponse.js";
 
 export const registerPatient = async (req, res) => {
   try {
-    // console.log("req", req);
-
     const {
       name,
       age,
@@ -48,11 +46,7 @@ export const registerPatient = async (req, res) => {
     }
 
     const imageUri = getDataUri(image);
-    // console.log(imageUri);
     const cloudRes = await cloudinary.uploader.upload(imageUri.content);
-
-    // console.log("Could --- ", cloudRes);
-
     await Patient.create({
       name,
       age,
@@ -105,14 +99,7 @@ export const loginPatient = async (req, res) => {
       maxAge: parseInt(process.env.COOKIE_MAXAGE, 10),
     };
 
-    // .env
-
-    //     # OPTIONS
-    // COOKIE_HTTPONLY=true
-    // COOKIE_SECURE=false
-    // COOKIE_SAMESITE=None
-    // COOKIE_MAXAGE=86400000
-
+    
     return res
       .status(200)
       .cookie("token", token, Options)

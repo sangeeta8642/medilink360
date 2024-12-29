@@ -6,32 +6,19 @@ const Consultations = () => {
 
   const { consultations } = useGetPatientConsultations()
 
-  console.log("consultations", consultations);
-
 
   return (
     <main className='w-full h-full '>
       <Navbar />
       <section className='w-full h-full flex flex-col items-center py-5 gap-5'>
         {
-          consultations.map((consult) => (
-            <ConsultantCard consult={consult} />
-          ))
-        }
-        {
-          consultations.map((consult) => (
-            <ConsultantCard consult={consult} />
-          ))
-        }
-        {
-          consultations.map((consult) => (
-            <ConsultantCard consult={consult} />
-          ))
-        }
-        {
-          consultations.map((consult) => (
-            <ConsultantCard consult={consult} />
-          ))
+          consultations.length > 0 ? (
+            consultations.map((consult) => (
+              <ConsultantCard consult={consult} />
+            ))
+          ) : <h1>
+            No consultations found
+          </h1>
         }
       </section>
     </main>

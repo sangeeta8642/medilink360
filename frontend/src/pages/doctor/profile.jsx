@@ -1,7 +1,7 @@
 import Navbar from '@/components/navbar';
 import React from 'react'
 
-const PatientProfile = () => {
+const DoctorProfile = () => {
 
     const user = JSON.parse(localStorage.getItem("authToken"))
     
@@ -16,11 +16,12 @@ const PatientProfile = () => {
                     <h3>Name: {user.name}</h3>
                     <h3>Email: {user.email}</h3>
                     <h3>Phone: {user.phone}</h3>
-                    <h3>Age: {user.age} Years</h3>
+                    <h3>Speaciality: {user.speciality} Years</h3>
+                    <h3>Experience: {user.experience} Years</h3>
                 </div>
             </section>
         </main>
     )
 }
 
-export default PatientProfile
+export default DoctorProfile

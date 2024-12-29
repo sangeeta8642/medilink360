@@ -34,13 +34,13 @@ const patientSchema = new mongoose.Schema(
       default: [],
     },
     profilePic: {
-      type: String, //cloudinary url
+      type: String,
       required: true,
     },
     role: {
-      type: String, //cloudinary url
+      type: String,
       required: true,
-      enum:["patient"]
+      enum: ["patient"],
     },
   },
   {
@@ -51,7 +51,7 @@ const patientSchema = new mongoose.Schema(
 patientSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
-  this.password =await bcrypt.hash(this.password, 10);
+  this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 

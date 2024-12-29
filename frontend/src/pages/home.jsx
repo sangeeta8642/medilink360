@@ -15,9 +15,8 @@ const Home = () => {
           Please choose your role
         </h1>
         <div className='flex gap-10'>
-          <Button size="lg" className="bg-teal-700" onClick={()=>nav('/doctor')}>Doctor</Button>
-          <Button size="lg" className="bg-teal-700" onClick={()=>nav('/patient/signup')}>Patient</Button>
-          {/* <Button>Patient</Button> */}
+          <Button size="lg" className="bg-teal-700" onClick={() => nav('/doctor/signup')}>Doctor</Button>
+          <Button size="lg" className="bg-teal-700" onClick={() => nav('/patient/signup')}>Patient</Button>
         </div>
       </section>
     </main>

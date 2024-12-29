@@ -66,6 +66,7 @@ export const loginDoctor = async (req, res) => {
     if (!isPasswordMatched) {
       return sendResponse(res, 400, "Invalid password");
     }
+    const doctorData = await Doctor.findOne({ email }).select("-password");
 
     const token = jwt.sign({ doctorId: doctor._id }, process.env.SECRET_KEY, {
       expiresIn: "1h",
@@ -80,7 +81,7 @@ export const loginDoctor = async (req, res) => {
 
     res.cookie("token", token, Options);
 
-    return sendResponse(res, 200, "login successfull", true);
+    return sendResponse(res, 200, "login successfull", true, doctorData);
   } catch (error) {
     return sendResponse(res, 500, error.message);
   }

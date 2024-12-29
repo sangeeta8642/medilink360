@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const useGetPatientPrescription = () => {
+export const useGetDoctorPrescription = () => {
   const [prescriptions, setPrescriptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,7 +10,7 @@ export const useGetPatientPrescription = () => {
     const fetchPrescriptions = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKENDURL}/prescription/get/by/patient`,
+          `${import.meta.env.VITE_BACKENDURL}/prescription/get/by/doctor`,
           { withCredentials: true }
         );
         setPrescriptions(response.data.data);

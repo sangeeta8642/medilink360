@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const useGetPatientPrescription = () => {
-  const [prescriptions, setPrescriptions] = useState([]);
+export const useGetprescriptionById = (id) => {
+  const [prescription, setprescription] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchPrescriptions = async () => {
+    const fetchprescription = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKENDURL}/prescription/get/by/patient`,
+          `${import.meta.env.VITE_BACKENDURL}/prescription/${id}`,
           { withCredentials: true }
         );
-        setPrescriptions(response.data.data);
+        setprescription(response.data.data);
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -21,7 +21,7 @@ export const useGetPatientPrescription = () => {
       }
     };
 
-    fetchPrescriptions();
+    fetchprescription();
   }, []);
-  return { prescriptions, loading, error };
+  return { prescription, loading, error };
 };

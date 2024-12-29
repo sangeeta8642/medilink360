@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export const useGetPatientConsultations = () => {
-  const [consultations, setConsultations] = useState([]); // Store doctors data
-  const [loading, setLoading] = useState(true); // Track loading state
-  const [error, setError] = useState(null); // Track error state
-
+  const [consultations, setConsultations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   useEffect(() => {
     const fetchConsultations = async () => {
       try {
@@ -13,16 +12,16 @@ export const useGetPatientConsultations = () => {
           `${import.meta.env.VITE_BACKENDURL}/consultation/get/by/patient`,
           { withCredentials: true }
         );
-        setConsultations(response.data.data); // Set the fetched doctors data/$
-        setLoading(false); // Set loading to false after data is fetched
+        setConsultations(response.data.data);
+        setLoading(false);
       } catch (error) {
-        setError(error); // Set error if the request fails
-        setLoading(false); // Set loading to false if an error occurs
+        setError(error);
+        setLoading(false);
       }
     };
 
-    fetchConsultations(); // Call the function to fetch doctors
-  }, []); // Empty dependency array ensures this runs only once when the component mounts
+    fetchConsultations();
+  }, []);
 
-  return { consultations, loading, error }; // Return the doctors data, loading, and error state
+  return { consultations, loading, error };
 };

@@ -26,13 +26,10 @@ const Signin = () => {
                 }
             );
 
-            console.log("Login Successful:", response.data);
-
-            localStorage.setItem("authToken", response.data.token);
+            localStorage.setItem("authToken", JSON.stringify(response.data.data));
 
             navigate("/doctor");
         } catch (error) {
-            // Handle errors
             alert("An unexpected error occurred. Please try again.");
         }
     };

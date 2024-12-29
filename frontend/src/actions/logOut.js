@@ -7,7 +7,7 @@ export const LogOut = async () => {
       null,
       { withCredentials: true }
     );
-
+    localStorage.clear();
     return await response.data;
   } catch (error) {
     console.log(error);

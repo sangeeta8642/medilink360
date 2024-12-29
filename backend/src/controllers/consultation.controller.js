@@ -17,7 +17,6 @@ export const createConsultation = async (req, res) => {
     } = req.body;
 
     const patientId = req.id;
-    console.log("reqbody", patientId);
     if (
       !doctorId ||
       !patientId ||
@@ -74,7 +73,7 @@ export const createConsultation = async (req, res) => {
 
 export const getConsultationsOfDoctor = async (req, res) => {
   try {
-    const { doctorId } = req.body;
+    const doctorId = req.id;
 
     if (!doctorId) {
       return sendResponse(res, 400, "Please provide the doctorId");
@@ -100,7 +99,6 @@ export const getConsultationsOfDoctor = async (req, res) => {
 
 export const getConsultationsOfPatient = async (req, res) => {
   try {
-    // const { patientId } = req.body;
     const patientId = req.id;
 
     if (!patientId) {

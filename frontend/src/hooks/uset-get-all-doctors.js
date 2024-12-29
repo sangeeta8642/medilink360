@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export const useGetAllDoctors = () => {
-  const [doctors, setDoctors] = useState([]); // Store doctors data
-  const [loading, setLoading] = useState(true); // Track loading state
-  const [error, setError] = useState(null); // Track error state
+  const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -15,16 +15,15 @@ export const useGetAllDoctors = () => {
             withCredentials: true,
           }
         );
-        setDoctors(response.data.data); // Set the fetched doctors data
-        setLoading(false); // Set loading to false after data is fetched
+        setDoctors(response.data.data);
+        setLoading(false);
       } catch (error) {
-        setError(error); // Set error if the request fails
-        setLoading(false); // Set loading to false if an error occurs
+        setError(error);
+        setLoading(false);
       }
     };
 
-    fetchDoctors(); // Call the function to fetch doctors
-  }, []); // Empty dependency array ensures this runs only once when the component mounts
-
-  return { doctors, loading, error }; // Return the doctors data, loading, and error state
+    fetchDoctors();
+  }, []);
+  return { doctors, loading, error };
 };

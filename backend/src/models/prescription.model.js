@@ -16,7 +16,7 @@ const prescriptionSchema = new mongoose.Schema(
       required: true,
     },
     pdf: {
-      type: String, //url of the pdf
+      type: String,
       required: true,
     },
   },
