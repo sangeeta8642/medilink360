@@ -97,13 +97,27 @@ export const loginPatient = async (req, res) => {
       { expiresIn: "1h" }
     );
 
+    const Options = {
+      httpOnly: process.env.COOKIE_HTTPONLY,
+      secure: process.env.COOKIE_SECURE,
+      sameSite: process.env.COOKIE_SAMESITE,
+      maxAge: parseInt(process.env.COOKIE_MAXAGE, 10),
+    };
+
+    // .env
+
+    //     # OPTIONS
+    // COOKIE_HTTPONLY=true
+    // COOKIE_SECURE=false
+    // COOKIE_SAMESITE=None
+    // COOKIE_MAXAGE=86400000
+
     return res
       .status(200)
       .cookie("token", token, {
         maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day in milliseconds
-        httpOnly: true,                 // Prevent access to the cookie via JavaScript
-        sameSite: "strict",             // Ensure the cookie is sent only with requests originating from the same site
-        secure: true,    
+        httpOnly: true, // Prevent access to the cookie via JavaScript
+        secure: true,
       })
       .json({ message: "login successfull", success: true, data: patientData });
   } catch (error) {
