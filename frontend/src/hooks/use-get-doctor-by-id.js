@@ -10,7 +10,8 @@ export const useGetDoctorById = (id) => {
     const fetchDoctors = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKENDURL}/doctor/${id}`
+          `${import.meta.env.VITE_BACKENDURL}/doctor/${id}`,
+          { withCredentials: true }
         );
         setDoctor(response.data.data); // Set the fetched doctors data/$
         setLoading(false); // Set loading to false after data is fetched

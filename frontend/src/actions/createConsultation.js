@@ -4,7 +4,8 @@ export const CreateConsultation = async (formData) => {
   try {
     let response = await axios.post(
       `${import.meta.env.VITE_BACKENDURL}/consultation`,
-      formData
+      formData,
+      { withCredentials: true }
     );
 
     return await response.data;

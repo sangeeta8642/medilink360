@@ -17,6 +17,9 @@ const Signin = () => {
                 `${import.meta.env.VITE_BACKENDURL}/doctor/login`,
                 DoctorLoginData,
                 {
+                    withCredentials: true
+                },
+                {
                     headers: {
                         "Content-Type": "application/json",
                     },

@@ -20,7 +20,9 @@ const Signup = () => {
         try {
             const response = await axios.post(
                 `${import.meta.env.VITE_BACKENDURL}/doctor/register`,
-                DoctorRegisterData,
+                DoctorRegisterData, {
+                withCredentials: true
+            },
                 {
                     headers: {
                         "Content-Type": "application/json",
