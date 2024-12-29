@@ -37,6 +37,11 @@ const patientSchema = new mongoose.Schema(
       type: String, //cloudinary url
       required: true,
     },
+    role: {
+      type: String, //cloudinary url
+      required: true,
+      enum:["patient"]
+    },
   },
   {
     timestamps: true,

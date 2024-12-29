@@ -62,6 +62,7 @@ export const registerPatient = async (req, res) => {
       surgeryHistory,
       illnessHistory,
       profilePic: cloudRes.secure_url || "",
+      role: "patient",
     });
 
     return sendResponse(res, 201, "patient created successfully", true);
